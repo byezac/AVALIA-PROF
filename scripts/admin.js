@@ -107,37 +107,68 @@ class DashboardController {
     }
 
     prepararDadosEvolucao(avaliacoes) {
-        console.log('Preparando dados de evolução...', avaliacoes);
-        const avaliacoesPorData = {};
+        console.log('Preparando dados de evolução por hora...');
+        const avaliacoesPorHora = {};
         
         Object.values(avaliacoes).forEach(av => {
-            if (!av.timestamp) return;
+            if (!av.timestamp || !av.avaliacoes) return;
             
-            const data = new Date(av.timestamp).toLocaleDateString('pt-BR');
-            if (!avaliacoesPorData[data]) {
-                avaliacoesPorData[data] = {
+            // Pega a hora do timestamp
+            const hora = new Date(av.timestamp).getHours();
+            const horaFormatada = `${hora}:00`;
+            
+            if (!avaliacoesPorHora[horaFormatada]) {
+                avaliacoesPorHora[horaFormatada] = {
                     soma: 0,
                     count: 0
                 };
             }
             
-            if (av.notas) {
-                const notas = Object.values(av.notas).map(Number);
-                if (notas.length > 0) {
-                    const media = notas.reduce((a, b) => a + b, 0) / notas.length;
-                    avaliacoesPorData[data].soma += media;
-                    avaliacoesPorData[data].count++;
-                }
+            // Calcula média das avaliações
+            let somaNotas = 0;
+            let totalNotas = 0;
+            
+            // Professor
+            if (av.avaliacoes.professor) {
+                Object.values(av.avaliacoes.professor).forEach(nota => {
+                    const notaNum = Number(nota);
+                    if (!isNaN(notaNum)) {
+                        somaNotas += notaNum;
+                        totalNotas++;
+                    }
+                });
+            }
+            
+            // Gestão
+            if (av.avaliacoes.gestao) {
+                ['coordenacao', 'direcao', 'vicedirecao'].forEach(setor => {
+                    if (av.avaliacoes.gestao[setor]) {
+                        Object.values(av.avaliacoes.gestao[setor]).forEach(nota => {
+                            const notaNum = Number(nota);
+                            if (!isNaN(notaNum)) {
+                                somaNotas += notaNum;
+                                totalNotas++;
+                            }
+                        });
+                    }
+                });
+            }
+            
+            if (totalNotas > 0) {
+                const mediaAvaliacao = somaNotas / totalNotas;
+                avaliacoesPorHora[horaFormatada].soma += mediaAvaliacao;
+                avaliacoesPorHora[horaFormatada].count++;
             }
         });
 
-        const labels = Object.keys(avaliacoesPorData).sort((a, b) => 
-            new Date(a.split('/').reverse().join('-')) - new Date(b.split('/').reverse().join('-'))
-        );
+        // Ordena as horas (0 a 23)
+        const labels = Object.keys(avaliacoesPorHora).sort((a, b) => {
+            return parseInt(a) - parseInt(b);
+        });
         
-        const dados = labels.map(data => {
-            const mediaData = avaliacoesPorData[data].soma / avaliacoesPorData[data].count;
-            return Number(mediaData.toFixed(2));
+        const dados = labels.map(hora => {
+            const { soma, count } = avaliacoesPorHora[hora];
+            return count > 0 ? Number((soma / count).toFixed(2)) : 0;
         });
 
         console.log('Dados de evolução processados:', { labels, dados });
@@ -145,21 +176,23 @@ class DashboardController {
     }
 
     prepararDadosNotas(avaliacoes) {
-        console.log('Preparando dados de notas...', avaliacoes);
+        console.log('Preparando dados de distribuição de notas...');
         const distribuicao = [0, 0, 0, 0, 0]; // Para notas de 1 a 5
         
-        Object.values(avaliacoes).forEach(av => {
-            if (av.notas) {
-                Object.values(av.notas).forEach(nota => {
-                    const notaNum = Math.round(Number(nota));
-                    if (notaNum >= 1 && notaNum <= 5) {
-                        distribuicao[notaNum - 1]++;
+        Object.values(avaliacoes).forEach(avaliacao => {
+            // Acessa o nó 'avaliacoes' dentro de cada avaliação
+            if (avaliacao.avaliacoes) {
+                Object.values(avaliacao.avaliacoes).forEach(nota => {
+                    // Converte a nota para número e verifica se é válida
+                    const notaNum = Number(nota);
+                    if (!isNaN(notaNum) && notaNum >= 1 && notaNum <= 5) {
+                        distribuicao[Math.floor(notaNum) - 1]++;
                     }
                 });
             }
         });
 
-        console.log('Distribuição de notas:', distribuicao);
+        console.log('Distribuição final das notas:', distribuicao);
         return distribuicao;
     }
 
@@ -438,11 +471,10 @@ class DashboardController {
 
     verDetalhesTurma(turma) {
         console.log('Ver detalhes da turma:', turma);
-        // Implementar visualiza��ão detalhada
+        // Implementar visualizaão detalhada
     }
 
     initCharts() {
-        // Gráfico de Evolução
         const ctxEvolucao = document.getElementById('evolucao-chart')?.getContext('2d');
         if (ctxEvolucao) {
             this.charts.evolucao = new Chart(ctxEvolucao, {
@@ -450,12 +482,15 @@ class DashboardController {
                 data: {
                     labels: [],
                     datasets: [{
-                        label: 'Média das Avaliações',
+                        label: 'Média das Avaliações por Hora',
                         data: [],
                         borderColor: '#4361ee',
-                        backgroundColor: '#4361ee',
+                        backgroundColor: 'rgba(67, 97, 238, 0.1)',
                         tension: 0.4,
-                        fill: false
+                        fill: true,
+                        pointBackgroundColor: '#4361ee',
+                        pointRadius: 4,
+                        pointHoverRadius: 6
                     }]
                 },
                 options: {
@@ -468,12 +503,28 @@ class DashboardController {
                             ticks: {
                                 stepSize: 0.5
                             }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Hora do dia'
+                            }
                         }
                     },
                     plugins: {
                         legend: {
                             display: true,
                             position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `Média: ${context.parsed.y.toFixed(2)}`;
+                                }
+                            }
                         }
                     }
                 }
@@ -486,11 +537,12 @@ class DashboardController {
             this.charts.notas = new Chart(ctxNotas, {
                 type: 'bar',
                 data: {
-                    labels: ['1', '2', '3', '4', '5'],
+                    labels: ['1 Estrela', '2 Estrelas', '3 Estrelas', '4 Estrelas', '5 Estrelas'],
                     datasets: [{
                         label: 'Quantidade de Avaliações',
                         data: [0, 0, 0, 0, 0],
-                        backgroundColor: '#4361ee'
+                        backgroundColor: '#4361ee',
+                        borderRadius: 5
                     }]
                 },
                 options: {
@@ -500,8 +552,15 @@ class DashboardController {
                         y: {
                             beginAtZero: true,
                             ticks: {
-                                stepSize: 1
+                                stepSize: 1,
+                                precision: 0 // Força números inteiros
                             }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
                         }
                     }
                 }

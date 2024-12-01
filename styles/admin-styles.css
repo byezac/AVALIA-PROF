@@ -699,4 +699,16 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+.chart-filter {
+    margin-bottom: 1rem;
+    width: 200px;
+}
+
+.form-select {
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
  
