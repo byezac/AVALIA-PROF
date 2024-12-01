@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2196F3">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>AVALIA-EETEPA</title>
+    <link rel="shortcut icon" href="img/eetepa-Xinguara-2.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <header>
+        <div class="feira-title">
+            <h2>AVALIA-EETEPA</h2>
+        </div>
+        
+        <div class="image-gallery">
+            <div class="image-container">
+                <img src="img/admin-avatar.png" alt="Logo EETEP" class="gallery-image">
+            </div>
+            <div class="image-container">
+                <img src="img/governo do pará.png" alt="Logo Governo do Pará" class="gallery-image">
+            </div>
+            <div class="image-container">
+                <img src="img/sectet.png" alt="Logo SECTET" class="gallery-image">
+            </div>
+        </div>
+        <div class="header-content">
+            <h1>Olá caro estudante!</h1>
+            <p class="subtitle">Gostariamos de realizar uma pequena avaliação dos profissionais desta instituição,  para isso contamos com sua colaboração  em ser verdadeiro (a) nas respostas, afinal precisamos saber em que ponto (s) precisamos melhorar!! 
+                Sua participação é fundamental!<strong> lembre-se de avaliar cada professor individualmente apenas uma vez.</strong></p>
+        </div>
+    </header>
+
+    <main>
+        
+        <form id="avaliacaoForm">
+            <div id="secao-coordenacao">
+                <h3>Avaliação da Coordenação</h3>
+                <p>1. Como você considera a disponibilidade no atendimento aos alunos?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="disponibilidade">
+                        <div>
+                            <input type="radio" name="coordenador_disponibilidade" value="2" id="coordenador_disponibilidade-2">
+                            <label for="coordenador_disponibilidade-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_disponibilidade" value="3" id="coordenador_disponibilidade-3">
+                            <label for="coordenador_disponibilidade-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_disponibilidade" value="4" id="coordenador_disponibilidade-4">
+                            <label for="coordenador_disponibilidade-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_disponibilidade" value="5" id="coordenador_disponibilidade-5">
+                            <label for="coordenador_disponibilidade-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>2. Com relação ao respeito às regras da escola (regimento escolar), você considera?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="respeito_regras">
+                        <div>
+                            <input type="radio" name="coordenador_respeito_regras" value="2" id="coordenador_respeito_regras-2">
+                            <label for="coordenador_respeito_regras-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_respeito_regras" value="3" id="coordenador_respeito_regras-3">
+                            <label for="coordenador_respeito_regras-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_respeito_regras" value="4" id="coordenador_respeito_regras-4">
+                            <label for="coordenador_respeito_regras-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_respeito_regras" value="5" id="coordenador_respeito_regras-5">
+                            <label for="coordenador_respeito_regras-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>3. Sobre a pontualidade, costuma estar no horário de trabalho?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="pontualidade">
+                        <div>
+                            <input type="radio" name="coordenador_pontualidade" value="2" id="coordenador_pontualidade-2">
+                            <label for="coordenador_pontualidade-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_pontualidade" value="3" id="coordenador_pontualidade-3">
+                            <label for="coordenador_pontualidade-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_pontualidade" value="4" id="coordenador_pontualidade-4">
+                            <label for="coordenador_pontualidade-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_pontualidade" value="5" id="coordenador_pontualidade-5">
+                            <label for="coordenador_pontualidade-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>4. Sobre o relacionamento com os alunos?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="relacionamento">
+                        <div>
+                            <input type="radio" name="coordenador_relacionamento" value="2" id="coordenador_relacionamento-2">
+                            <label for="coordenador_relacionamento-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_relacionamento" value="3" id="coordenador_relacionamento-3">
+                            <label for="coordenador_relacionamento-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_relacionamento" value="4" id="coordenador_relacionamento-4">
+                            <label for="coordenador_relacionamento-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="coordenador_relacionamento" value="5" id="coordenador_relacionamento-5">
+                            <label for="coordenador_relacionamento-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>5. Na sua opinião, qual a importância desse profissional para a escola?</p>
+                <input type="text" name="importancia_profissional_cordenador" id="importancia_profissional_cordenador" placeholder="Escreva sua opinião aqui" />
+            </div>
+
+            <div id="secao-direcao">
+                <h3>Avaliação da Direção</h3>
+                <p>1. Como você avalia o ambiente escolar, em relação à higiene?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="higiene">
+                        <div>
+                            <input type="radio" name="direcao_higiene" value="2" id="direcao_higiene-2">
+                            <label for="direcao_higiene-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="direcao_higiene" value="3" id="direcao_higiene-3">
+                            <label for="direcao_higiene-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="direcao_higiene" value="4" id="direcao_higiene-4">
+                            <label for="direcao_higiene-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="direcao_higiene" value="5" id="direcao_higiene-5">
+                            <label for="direcao_higiene-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>2. Respeita as regras da escola?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="respeito_regras">
+                        <div>
+                            <input type="radio" name="direcao_respeito_regras" value="2" id="direcao_respeito_regras-2">
+                            <label for="direcao_respeito_regras-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="direcao_respeito_regras" value="3" id="direcao_respeito_regras-3">
+                            <label for="direcao_respeito_regras-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="direcao_respeito_regras" value="4" id="direcao_respeito_regras-4">
+                            <label for="direcao_respeito_regras-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="direcao_respeito_regras" value="5" id="direcao_respeito_regras-5">
+                            <label for="direcao_respeito_regras-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>3. Em relação à disponibilidade em atender os alunos?</p>
+                <div class="faces" data-rating="disponibilidade">
+                    <div>
+                        <input type="radio" name="direcao_disponibilidade" value="2" id="direcao_disponibilidade-2">
+                        <label for="direcao_disponibilidade-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_disponibilidade" value="3" id="direcao_disponibilidade-3">
+                        <label for="direcao_disponibilidade-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_disponibilidade" value="4" id="direcao_disponibilidade-4">
+                        <label for="direcao_disponibilidade-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_disponibilidade" value="5" id="direcao_disponibilidade-5">
+                        <label for="direcao_disponibilidade-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+
+                <p>4. A direção oportuniza espaços para a exposição de vários pontos de vista?</p>
+                <div class="faces" data-rating="exposicao">
+                    <div>
+                        <input type="radio" name="direcao_exposicao" value="2" id="direcao_exposicao-2">
+                        <label for="direcao_exposicao-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_exposicao" value="3" id="direcao_exposicao-3">
+                        <label for="direcao_exposicao-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_exposicao" value="4" id="direcao_exposicao-4">
+                        <label for="direcao_exposicao-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_exposicao" value="5" id="direcao_exposicao-5">
+                        <label for="direcao_exposicao-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+
+                <p>5. Demonstra confiabilidade?</p>
+                <div class="faces" data-rating="confiabilidade">
+                    <div>
+                        <input type="radio" name="direcao_confiabilidade" value="2" id="direcao_confiabilidade-2">
+                        <label for="direcao_confiabilidade-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_confiabilidade" value="3" id="direcao_confiabilidade-3">
+                        <label for="direcao_confiabilidade-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_confiabilidade" value="4" id="direcao_confiabilidade-4">
+                        <label for="direcao_confiabilidade-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_confiabilidade" value="5" id="direcao_confiabilidade-5">
+                        <label for="direcao_confiabilidade-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+
+                <p>6. Demonstra responsabilidade?</p>
+                <div class="faces" data-rating="responsabilidade">
+                    <div>
+                        <input type="radio" name="direcao_responsabilidade" value="2" id="direcao_responsabilidade-2">
+                        <label for="direcao_responsabilidade-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_responsabilidade" value="3" id="direcao_responsabilidade-3">
+                        <label for="direcao_responsabilidade-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_responsabilidade" value="4" id="direcao_responsabilidade-4">
+                        <label for="direcao_responsabilidade-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_responsabilidade" value="5" id="direcao_responsabilidade-5">
+                        <label for="direcao_responsabilidade-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+
+                <p>7. Demonstra ética profissional?</p>
+                <div class="faces" data-rating="etica">
+                    <div>
+                        <input type="radio" name="direcao_etica" value="2" id="direcao_etica-2">
+                        <label for="direcao_etica-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_etica" value="3" id="direcao_etica-3">
+                        <label for="direcao_etica-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_etica" value="4" id="direcao_etica-4">
+                        <label for="direcao_etica-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="direcao_etica" value="5" id="direcao_etica-5">
+                        <label for="direcao_etica-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+
+                <p>8. Na sua opinião, a direção se relaciona bem com funcionários e professores?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="relacionamento">
+                        <div>
+                            <input type="radio" name="direcao_relacionamento" value="2" id="direcao_relacionamento-2">
+                            <label for="direcao_relacionamento-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="direcao_relacionamento" value="3" id="direcao_relacionamento-3">
+                            <label for="direcao_relacionamento-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="direcao_relacionamento" value="4" id="direcao_relacionamento-4">
+                            <label for="direcao_relacionamento-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="direcao_relacionamento" value="5" id="direcao_relacionamento-5">
+                            <label for="direcao_relacionamento-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>9. Na sua opinião, qual a importância desse profissional para a escola?</p>
+                <input type="text" name="importancia_profissional_direcao" id="importancia_profissional_direcao" placeholder="Escreva sua opinião aqui" />
+            </div>
+
+            <div id="secao-vicedirecao">
+                <h3>Avaliação da Vice-direção</h3>
+                <p>1. Respeita as regras da escola?</p>
+                <div class="faces" data-rating="respeito_regras">
+                    <div>
+                        <input type="radio" name="vicedirecao_respeito_regras" value="2" id="vicedirecao_respeito_regras-2">
+                        <label for="vicedirecao_respeito_regras-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_respeito_regras" value="3" id="vicedirecao_respeito_regras-3">
+                        <label for="vicedirecao_respeito_regras-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_respeito_regras" value="4" id="vicedirecao_respeito_regras-4">
+                        <label for="vicedirecao_respeito_regras-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_respeito_regras" value="5" id="vicedirecao_respeito_regras-5">
+                        <label for="vicedirecao_respeito_regras-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+
+                <p>2. Em relação à disponibilidade em atender os alunos?</p>
+                <div class="faces" data-rating="disponibilidade">
+                    <div>
+                        <input type="radio" name="vicedirecao_disponibilidade" value="2" id="vicedirecao_disponibilidade-2">
+                        <label for="vicedirecao_disponibilidade-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_disponibilidade" value="3" id="vicedirecao_disponibilidade-3">
+                        <label for="vicedirecao_disponibilidade-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_disponibilidade" value="4" id="vicedirecao_disponibilidade-4">
+                        <label for="vicedirecao_disponibilidade-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_disponibilidade" value="5" id="vicedirecao_disponibilidade-5">
+                        <label for="vicedirecao_disponibilidade-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+
+                <p>3. A vice direção oportuniza espaços para a exposição de vários pontos de vista?</p>
+                <div class="faces" data-rating="exposicao">
+                    <div>
+                        <input type="radio" name="vicedirecao_exposicao" value="2" id="vicedirecao_exposicao-2">
+                        <label for="vicedirecao_exposicao-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_exposicao" value="3" id="vicedirecao_exposicao-3">
+                        <label for="vicedirecao_exposicao-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_exposicao" value="4" id="vicedirecao_exposicao-4">
+                        <label for="vicedirecao_exposicao-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_exposicao" value="5" id="vicedirecao_exposicao-5">
+                        <label for="vicedirecao_exposicao-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+
+                <p>4. Demonstra confiabilidade?</p>
+                <div class="faces" data-rating="confiabilidade">
+                    <div>
+                        <input type="radio" name="vicedirecao_confiabilidade" value="2" id="vicedirecao_confiabilidade-2">
+                        <label for="vicedirecao_confiabilidade-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_confiabilidade" value="3" id="vicedirecao_confiabilidade-3">
+                        <label for="vicedirecao_confiabilidade-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_confiabilidade" value="4" id="vicedirecao_confiabilidade-4">
+                        <label for="vicedirecao_confiabilidade-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_confiabilidade" value="5" id="vicedirecao_confiabilidade-5">
+                        <label for="vicedirecao_confiabilidade-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+
+                <p>5. Demonstra responsabilidade?</p>
+                <div class="faces" data-rating="responsabilidade">
+                    <div>
+                        <input type="radio" name="vicedirecao_responsabilidade" value="2" id="vicedirecao_responsabilidade-2">
+                        <label for="vicedirecao_responsabilidade-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_responsabilidade" value="3" id="vicedirecao_responsabilidade-3">
+                        <label for="vicedirecao_responsabilidade-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_responsabilidade" value="4" id="vicedirecao_responsabilidade-4">
+                        <label for="vicedirecao_responsabilidade-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="vicedirecao_responsabilidade" value="5" id="vicedirecao_responsabilidade-5">
+                        <label for="vicedirecao_responsabilidade-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+
+                <p>6. Demonstra ética profissional?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="etica">
+                        <div>
+                            <input type="radio" name="vicedirecao_etica" value="2" id="vicedirecao_etica-2">
+                            <label for="vicedirecao_etica-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="vicedirecao_etica" value="3" id="vicedirecao_etica-3">
+                            <label for="vicedirecao_etica-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="vicedirecao_etica" value="4" id="vicedirecao_etica-4">
+                            <label for="vicedirecao_etica-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="vicedirecao_etica" value="5" id="vicedirecao_etica-5">
+                            <label for="vicedirecao_etica-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>7. Na sua opinião, a vice direção se relaciona bem com funcionários e professores?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="relacionamento">
+                        <div>
+                            <input type="radio" name="vicedirecao_relacionamento" value="2" id="vicedirecao_relacionamento-2">
+                            <label for="vicedirecao_relacionamento-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="vicedirecao_relacionamento" value="3" id="vicedirecao_relacionamento-3">
+                            <label for="vicedirecao_relacionamento-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="vicedirecao_relacionamento" value="4" id="vicedirecao_relacionamento-4">
+                            <label for="vicedirecao_relacionamento-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="vicedirecao_relacionamento" value="5" id="vicedirecao_relacionamento-5">
+                            <label for="vicedirecao_relacionamento-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>8. Na sua opinião, qual a importância desse profissional para a escola?</p>
+                <input type="text" name="importancia_profissional_vicedirecao" id="importancia_profissional_vicedirecao" placeholder="Escreva sua opinião aqui" />
+            </div>
+
+            <div class="section section-professores">
+                <h3>Avaliação do Professor</h3>
+                <div class="form-group">
+                    <label for="turma">Selecione sua turma:</label>
+                    <select id="turma" name="turma" required>
+                        <option value="">Selecione uma turma</option>
+                        
+                        <optgroup label="1° ANO">
+                            <!-- Turmas da Manhã -->
+                            <option value="adm1m">1° ADMINISTRAÇÃO - MANHÃ</option>
+                            <option value="agro1m">1° AGROPECUÁRIA - MANHÃ</option>
+                            <option value="agri1m">1° AGROINDÚSTRIA - MANHÃ</option>
+                            <option value="mult1m">1° MULTIMÍDIA - MANHÃ</option>
+                            
+                            <!-- Turmas da Tarde -->
+                            <option value="agri1t">1° AGRICULTURA - TARDE</option>
+                            <option value="jogos1t">1° JOGOS DIGITAIS - TARDE</option>
+                            <option value="rh1t">1° RECURSOS HUMANOS - TARDE</option>
+                        </optgroup>
+                        
+                        <optgroup label="2° ANO">
+                            <!-- Turmas da Manhã -->
+                            <option value="agri2m">2° AGRICULTURA - MANHÃ</option>
+                            <option value="jogos2m">2° JOGOS DIGITAIS - MANHÃ</option>
+                            <option value="min2m">2° MINERAÇÃO - MANHÃ</option>
+                            <option value="rh2m">2° RECURSOS HUMANOS - MANHÃ</option>
+                            
+                            <!-- Turmas da Tarde -->
+                            <option value="agri2t">2° AGROINDÚSTRIA - TARDE</option>
+                            <option value="agro2t">2° AGROPECUÁRIA - TARDE</option>
+                            <option value="mult2t">2° MULTIMÍDIA - TARDE</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="avaliado">Avaliar:</label>
+                    <select id="avaliado" name="avaliado" required disabled>
+                        <option value="">Primeiro selecione uma turma</option>
+                    </select>
+                </div>
+
+                <p>1. O professor tem uma boa maneira de ensinar (didática e metodologia)?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="didatica">
+                        <div>
+                            <input type="radio" name="professor_didatica" value="2" id="professor_didatica-2">
+                            <label for="professor_didatica-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_didatica" value="3" id="professor_didatica-3">
+                            <label for="professor_didatica-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_didatica" value="4" id="professor_didatica-4">
+                            <label for="professor_didatica-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_didatica" value="5" id="professor_didatica-5">
+                            <label for="professor_didatica-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>2. Se relaciona bem com a turma?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="relacionamento">
+                        
+                        <div>
+                            <input type="radio" name="professor_relacionamento" value="2" id="professor_relacionamento-2">
+                            <label for="professor_relacionamento-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_relacionamento" value="3" id="professor_relacionamento-3">
+                            <label for="professor_relacionamento-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_relacionamento" value="4" id="professor_relacionamento-4">
+                            <label for="professor_relacionamento-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_relacionamento" value="5" id="professor_relacionamento-5">
+                            <label for="professor_relacionamento-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>3. É assíduo? (Não Falta?)</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="assiduidade">
+                        
+                        <div>
+                            <input type="radio" name="professor_assiduidade" value="2" id="professor_assiduidade-2">
+                            <label for="professor_assiduidade-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_assiduidade" value="3" id="professor_assiduidade-3">
+                            <label for="professor_assiduidade-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_assiduidade" value="4" id="professor_assiduidade-4">
+                            <label for="professor_assiduidade-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_assiduidade" value="5" id="professor_assiduidade-5">
+                            <label for="professor_assiduidade-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>4. É pontual com os horários?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="pontualidade">
+                       
+                        
+                        <div>
+                            <input type="radio" name="professor_pontualidade" value="2" id="professor_pontualidade-2">
+                            <label for="professor_pontualidade-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_pontualidade" value="3" id="professor_pontualidade-3">
+                            <label for="professor_pontualidade-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_pontualidade" value="4" id="professor_pontualidade-4">
+                            <label for="professor_pontualidade-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_pontualidade" value="5" id="professor_pontualidade-5">
+                            <label for="professor_pontualidade-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>5. Respeita as regras da escola (regimento escolar)?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="respeito_regras">
+                      
+                        
+                        <div>
+                            <input type="radio" name="professor_respeito_regras" value="2" id="professor_respeito_regras-2">
+                            <label for="professor_respeito_regras-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_respeito_regras" value="3" id="professor_respeito_regras-3">
+                            <label for="professor_respeito_regras-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_respeito_regras" value="4" id="professor_respeito_regras-4">
+                            <label for="professor_respeito_regras-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_respeito_regras" value="5" id="professor_respeito_regras-5">
+                            <label for="professor_respeito_regras-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>6. Apresenta atividades interessantes no processo de ensino?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="atividades_interessantes">
+                       
+                        
+                        <div>
+                            <input type="radio" name="professor_atividades_interessantes" value="2" id="professor_atividades_interessantes-2">
+                            <label for="professor_atividades_interessantes-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_atividades_interessantes" value="3" id="professor_atividades_interessantes-3">
+                            <label for="professor_atividades_interessantes-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_atividades_interessantes" value="4" id="professor_atividades_interessantes-4">
+                            <label for="professor_atividades_interessantes-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_atividades_interessantes" value="5" id="professor_atividades_interessantes-5">
+                            <label for="professor_atividades_interessantes-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>7. Demonstra segurança nos conteúdos ministrados?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="seguranca_conteudos">
+                        
+                        <div>
+                            <input type="radio" name="professor_seguranca_conteudos" value="2" id="professor_seguranca_conteudos-2">
+                            <label for="professor_seguranca_conteudos-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_seguranca_conteudos" value="3" id="professor_seguranca_conteudos-3">
+                            <label for="professor_seguranca_conteudos-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_seguranca_conteudos" value="4" id="professor_seguranca_conteudos-4">
+                            <label for="professor_seguranca_conteudos-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_seguranca_conteudos" value="5" id="professor_seguranca_conteudos-5">
+                            <label for="professor_seguranca_conteudos-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>8. Utiliza linguagem adequada?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="linguagem_adequada">
+                      
+                        
+                        <div>
+                            <input type="radio" name="professor_linguagem_adequada" value="2" id="professor_linguagem_adequada-2">
+                            <label for="professor_linguagem_adequada-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_linguagem_adequada" value="3" id="professor_linguagem_adequada-3">
+                            <label for="professor_linguagem_adequada-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_linguagem_adequada" value="4" id="professor_linguagem_adequada-4">
+                            <label for="professor_linguagem_adequada-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_linguagem_adequada" value="5" id="professor_linguagem_adequada-5">
+                            <label for="professor_linguagem_adequada-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>9. Demonstra respeito na relação com os alunos?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="respeito_alunos">
+                      
+                        <div>
+                            <input type="radio" name="professor_respeito_alunos" value="2" id="professor_respeito_alunos-2">
+                            <label for="professor_respeito_alunos-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="professor_respeito_alunos" value="3" id="professor_respeito_alunos-3">
+                            <label for="professor_respeito_alunos-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="professor_respeito_alunos" value="4" id="professor_respeito_alunos-4">
+                            <label for="professor_respeito_alunos-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="professor_respeito_alunos" value="5" id="professor_respeito_alunos-5">
+                            <label for="professor_respeito_alunos-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p>10. Você gosta das aulas desse professor?</p>
+                <div class="rating-group">
+                    <div class="faces" data-rating="gosta_aulas">
+                        <div>
+                            <input type="radio" name="professor_gosta_aulas" value="2" id="professor_gosta_aulas-2">
+                            <label for="professor_gosta_aulas-2" title="Ruim">😕</label>
+                            <span>Ruim</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_gosta_aulas" value="3" id="professor_gosta_aulas-3">
+                            <label for="professor_gosta_aulas-3" title="Regular">😐</label>
+                            <span>Regular</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_gosta_aulas" value="4" id="professor_gosta_aulas-4">
+                            <label for="professor_gosta_aulas-4" title="Bom">😊</label>
+                            <span>Bom</span>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="professor_gosta_aulas" value="5" id="professor_gosta_aulas-5">
+                            <label for="professor_gosta_aulas-5" title="Excelente">😁</label>
+                            <span>Excelente</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" id="submitButton" class="submit-btn">Enviar e Avaliar Professores</button>
+            </div>
+        </form>
+    </main>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="scripts/firebase-config.js"></script>
+    <script src="scripts/script.js"></script>
+
+    <footer>
+        <p>Developy by - Isaque &copy; 2024</p>
+    </footer>
+</body>
+</html>

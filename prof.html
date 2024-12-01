@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2196F3">
+    <title>AVALIA-EETEPA - Avaliação de Professores</title>
+    <link rel="shortcut icon" href="img/eetepa-Xinguara-2.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <header>
+        <div class="feira-title">
+            <h2>AVALIA-EETEPA</h2>
+        </div>
+        
+        <div class="header-content">
+            <h1>Avaliação dos Professores</h1>
+            <p class="subtitle">Por favor, avalie cada professor individualmente.</p>
+        </div>
+    </header>
+
+    <main>
+        <form id="avaliacaoProfessorForm">
+            <div class="form-group">
+                <label for="turma">Selecione sua turma: <span class="required">*</span></label>
+                <select id="turma" name="turma" required>
+                    <option value="">Selecione uma turma</option>
+                    <optgroup label="1° ANO - MANHÃ">
+                        <option value="adm1m">ADMINISTRAÇÃO 1°</option>
+                        <option value="agro1m">AGROINDÚSTRIA 1°</option>
+                        <option value="agrop1m">AGROPECUÁRIA 1°</option>
+                        <option value="mult1m">MULTIMÍDIA 1°</option>
+                    </optgroup>
+                    <optgroup label="1° ANO - TARDE">
+                        <option value="agri1t">AGRICULTURA 1°</option>
+                        <option value="jogos1t">JOGOS DIGITAIS 1°</option>
+                        <option value="rh1t">RECURSOS HUMANOS 1°</option>
+                    </optgroup>
+                    <optgroup label="2° ANO - MANHÃ">
+                        <option value="agri2m">AGRICULTURA 2°</option>
+                        <option value="jogos2m">JOGOS DIGITAIS 2°</option>
+                        <option value="min2m">MINERAÇÃO 2°</option>
+                        <option value="rh2m">RECURSOS HUMANOS 2°</option>
+                    </optgroup>
+                    <optgroup label="2° ANO - TARDE">
+                        <option value="agro2t">AGROINDÚSTRIA 2°</option>
+                        <option value="agrop2t">AGROPECUÁRIA 2°</option>
+                        <option value="mult2t">MULTIMÍDIA 2°</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="avaliado">Professor(a): <span class="required">*</span></label>
+                <select id="avaliado" name="avaliado" required disabled>
+                    <option value="">Primeiro selecione uma turma</option>
+                </select>
+            </div>
+            <p>1. O professor tem uma boa maneira de ensinar (didática e metodologia)?</p>
+            <div class="rating-group">
+                <div class="faces" data-rating="didatica">
+                    <div>
+                        <input type="radio" name="professor_didatica" value="2" id="professor_didatica-2">
+                        <label for="professor_didatica-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_didatica" value="3" id="professor_didatica-3">
+                        <label for="professor_didatica-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_didatica" value="4" id="professor_didatica-4">
+                        <label for="professor_didatica-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_didatica" value="5" id="professor_didatica-5">
+                        <label for="professor_didatica-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+            </div>
+
+            <p>2. Se relaciona bem com a turma?</p>
+            <div class="rating-group">
+                <div class="faces" data-rating="relacionamento">
+                    
+                    <div>
+                        <input type="radio" name="professor_relacionamento" value="2" id="professor_relacionamento-2">
+                        <label for="professor_relacionamento-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_relacionamento" value="3" id="professor_relacionamento-3">
+                        <label for="professor_relacionamento-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_relacionamento" value="4" id="professor_relacionamento-4">
+                        <label for="professor_relacionamento-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_relacionamento" value="5" id="professor_relacionamento-5">
+                        <label for="professor_relacionamento-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+            </div>
+
+            <p>3. É assíduo? (Não Falta?)</p>
+            <div class="rating-group">
+                <div class="faces" data-rating="assiduidade">
+                    
+                    <div>
+                        <input type="radio" name="professor_assiduidade" value="2" id="professor_assiduidade-2">
+                        <label for="professor_assiduidade-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_assiduidade" value="3" id="professor_assiduidade-3">
+                        <label for="professor_assiduidade-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_assiduidade" value="4" id="professor_assiduidade-4">
+                        <label for="professor_assiduidade-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_assiduidade" value="5" id="professor_assiduidade-5">
+                        <label for="professor_assiduidade-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+            </div>
+
+            <p>4. É pontual com os horários?</p>
+            <div class="rating-group">
+                <div class="faces" data-rating="pontualidade">
+                   
+                    
+                    <div>
+                        <input type="radio" name="professor_pontualidade" value="2" id="professor_pontualidade-2">
+                        <label for="professor_pontualidade-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_pontualidade" value="3" id="professor_pontualidade-3">
+                        <label for="professor_pontualidade-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_pontualidade" value="4" id="professor_pontualidade-4">
+                        <label for="professor_pontualidade-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_pontualidade" value="5" id="professor_pontualidade-5">
+                        <label for="professor_pontualidade-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+            </div>
+
+            <p>5. Respeita as regras da escola (regimento escolar)?</p>
+            <div class="rating-group">
+                <div class="faces" data-rating="respeito_regras">
+                  
+                    
+                    <div>
+                        <input type="radio" name="professor_respeito_regras" value="2" id="professor_respeito_regras-2">
+                        <label for="professor_respeito_regras-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_respeito_regras" value="3" id="professor_respeito_regras-3">
+                        <label for="professor_respeito_regras-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_respeito_regras" value="4" id="professor_respeito_regras-4">
+                        <label for="professor_respeito_regras-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_respeito_regras" value="5" id="professor_respeito_regras-5">
+                        <label for="professor_respeito_regras-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+            </div>
+
+            <p>6. Apresenta atividades interessantes no processo de ensino?</p>
+            <div class="rating-group">
+                <div class="faces" data-rating="atividades_interessantes">
+                   
+                    
+                    <div>
+                        <input type="radio" name="professor_atividades_interessantes" value="2" id="professor_atividades_interessantes-2">
+                        <label for="professor_atividades_interessantes-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_atividades_interessantes" value="3" id="professor_atividades_interessantes-3">
+                        <label for="professor_atividades_interessantes-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_atividades_interessantes" value="4" id="professor_atividades_interessantes-4">
+                        <label for="professor_atividades_interessantes-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_atividades_interessantes" value="5" id="professor_atividades_interessantes-5">
+                        <label for="professor_atividades_interessantes-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+            </div>
+
+            <p>7. Demonstra segurança nos conteúdos ministrados?</p>
+            <div class="rating-group">
+                <div class="faces" data-rating="seguranca_conteudos">
+                    
+                    <div>
+                        <input type="radio" name="professor_seguranca_conteudos" value="2" id="professor_seguranca_conteudos-2">
+                        <label for="professor_seguranca_conteudos-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_seguranca_conteudos" value="3" id="professor_seguranca_conteudos-3">
+                        <label for="professor_seguranca_conteudos-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_seguranca_conteudos" value="4" id="professor_seguranca_conteudos-4">
+                        <label for="professor_seguranca_conteudos-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_seguranca_conteudos" value="5" id="professor_seguranca_conteudos-5">
+                        <label for="professor_seguranca_conteudos-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+            </div>
+
+            <p>8. Utiliza linguagem adequada?</p>
+            <div class="rating-group">
+                <div class="faces" data-rating="linguagem_adequada">
+                  
+                    
+                    <div>
+                        <input type="radio" name="professor_linguagem_adequada" value="2" id="professor_linguagem_adequada-2">
+                        <label for="professor_linguagem_adequada-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_linguagem_adequada" value="3" id="professor_linguagem_adequada-3">
+                        <label for="professor_linguagem_adequada-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_linguagem_adequada" value="4" id="professor_linguagem_adequada-4">
+                        <label for="professor_linguagem_adequada-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_linguagem_adequada" value="5" id="professor_linguagem_adequada-5">
+                        <label for="professor_linguagem_adequada-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+            </div>
+
+            <p>9. Demonstra respeito na relação com os alunos?</p>
+            <div class="rating-group">
+                <div class="faces" data-rating="respeito_alunos">
+                  
+                    <div>
+                        <input type="radio" name="professor_respeito_alunos" value="2" id="professor_respeito_alunos-2">
+                        <label for="professor_respeito_alunos-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="professor_respeito_alunos" value="3" id="professor_respeito_alunos-3">
+                        <label for="professor_respeito_alunos-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="professor_respeito_alunos" value="4" id="professor_respeito_alunos-4">
+                        <label for="professor_respeito_alunos-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="professor_respeito_alunos" value="5" id="professor_respeito_alunos-5">
+                        <label for="professor_respeito_alunos-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+            </div>
+
+            <p>10. Você gosta das aulas desse professor?</p>
+            <div class="rating-group">
+                <div class="faces" data-rating="gosta_aulas">
+                    <div>
+                        <input type="radio" name="professor_gosta_aulas" value="2" id="professor_gosta_aulas-2">
+                        <label for="professor_gosta_aulas-2" title="Ruim">😕</label>
+                        <span>Ruim</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_gosta_aulas" value="3" id="professor_gosta_aulas-3">
+                        <label for="professor_gosta_aulas-3" title="Regular">😐</label>
+                        <span>Regular</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_gosta_aulas" value="4" id="professor_gosta_aulas-4">
+                        <label for="professor_gosta_aulas-4" title="Bom">😊</label>
+                        <span>Bom</span>
+                    </div>
+                    
+                    <div>
+                        <input type="radio" name="professor_gosta_aulas" value="5" id="professor_gosta_aulas-5">
+                        <label for="professor_gosta_aulas-5" title="Excelente">😁</label>
+                        <span>Excelente</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+            
+            <div class="button-group">
+                <button type="submit" id="submitButton" class="submit-btn">Enviar Avaliação</button>
+            </div>
+        </form>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script src="scripts/firebase-config.js"></script>
+    <script src="scripts/professores.js"></script>
+    <footer>
+        <p>Developy by - Isaque &copy; 2024</p>
+    </footer>
+</body>
+</html>

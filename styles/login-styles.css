@@ -1,0 +1,168 @@
+:root {
+    --primary-color: #1a73e8;
+    --primary-light: #4285f4;
+    --background-color: #f8f9fc;
+    --text-color: #2c3e50;
+    --card-background: white;
+    --shadow: 0 2px 10px rgba(26, 115, 232, 0.1);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-box {
+    background: var(--card-background);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.logo {
+    width: 120px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    color: var(--text-color);
+    font-size: 24px;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e1e8f0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    font-weight: 400;
+}
+
+input:focus {
+    border-color: var(--primary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+button[type="submit"]:hover {
+    background: var(--primary-light);
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-toggle .eye-icon {
+    width: 20px;
+    height: 20px;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.password-toggle:hover .eye-icon {
+    color: var(--primary-color);
+}
+
+form {
+    width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+footer p {
+    font-weight: 400;
+}
+
+/* Estilos responsivos para a página de login */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 15px;
+    }
+
+    .login-box {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .logo {
+        width: 80px;
+        height: 80px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .input-group {
+        margin-bottom: 15px;
+    }
+
+    input {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 0.9em;
+    }
+}
