@@ -16,21 +16,21 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("Firebase inicializado com sucesso");
         }
         
-        const db = firebase.database();
-        window.db = db;
-
-        // Teste de escrita
-        const testRef = db.ref('test');
-        testRef.set({
-            test: true,
-            timestamp: new Date().toISOString()
-        })
-        .then(() => {
-            console.log("Teste de escrita no Firebase bem-sucedido");
-        })
-        .catch((error) => {
-            console.error("Erro no teste de escrita:", error);
-        });
+        window.db = firebase.database();
+        
+        // Teste de conexão
+        const avaliacoesRef = window.db.ref('avaliacoes');
+        avaliacoesRef.once('value')
+            .then((snapshot) => {
+                console.log("Conexão com Firebase bem-sucedida");
+                console.log("Dados disponíveis:", snapshot.exists());
+                if (snapshot.exists()) {
+                    console.log("Número de avaliações:", Object.keys(snapshot.val()).length);
+                }
+            })
+            .catch((error) => {
+                console.error("Erro ao acessar dados:", error);
+            });
 
     } catch (error) {
         console.error("Erro ao inicializar Firebase:", error);

@@ -1,0 +1,39 @@
+.sidebar {
+    min-height: 100vh;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.card {
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border: none;
+    border-radius: 10px;
+}
+
+.card-title {
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.card-text {
+    color: #333;
+    font-weight: bold;
+}
+
+.table th {
+    font-weight: 600;
+    color: #666;
+}
+
+.nav-link {
+    padding: 0.5rem 1rem;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.nav-link.active {
+    background-color: rgba(255,255,255,0.2);
+} 
