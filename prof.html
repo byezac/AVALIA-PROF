@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="img/eetepa-Xinguara-2.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <header>
@@ -54,9 +55,11 @@
 
             <div class="form-group">
                 <label for="avaliado">Professor(a): <span class="required">*</span></label>
-                <select id="avaliado" name="avaliado" required disabled>
-                    <option value="">Primeiro selecione uma turma</option>
-                </select>
+                <div class="select-container">
+                    <select id="avaliado" name="avaliado" required disabled>
+                        <option value="">Primeiro selecione uma turma</option>
+                    </select>
+                </div>
             </div>
             <p>1. O professor tem uma boa maneira de ensinar (didática e metodologia)?</p>
             <div class="rating-group">
@@ -360,7 +363,10 @@
           
             
             <div class="button-group">
-                <button type="submit" id="submitButton" class="submit-btn">Enviar Avaliação</button>
+                <button type="submit" id="submitButton" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>Enviar Avaliação</span>
+                </button>
             </div>
         </form>
     </main>

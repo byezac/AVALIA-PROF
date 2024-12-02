@@ -181,12 +181,22 @@ class ProfessorController {
                 console.log("Dados enviados com sucesso para o Firebase!");
                 Swal.fire({
                     title: 'Sucesso!',
-                    text: 'Avaliação enviada com sucesso!',
-                    icon: 'success'
-                }).then(() => {
-                    document.getElementById('avaliacaoProfessorForm').reset();
-                    localStorage.removeItem('avaliacoesGestao');
-                    window.location.href = 'index.html';
+                    text: 'Avaliação enviada com sucesso! Deseja avaliar outro professor?',
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sim',
+                    cancelButtonText: 'Não'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Apenas reseta o formulário mantendo a turma selecionada
+                        const turmaAtual = document.getElementById('turma').value;
+                        document.getElementById('avaliacaoProfessorForm').reset();
+                        document.getElementById('turma').value = turmaAtual;
+                        this.atualizarProfessores(turmaAtual);
+                    } else {
+                        // Se clicar em "Não", volta para a página inicial
+                        window.location.href = 'index.html';
+                    }
                 });
             })
             .catch((error) => {

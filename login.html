@@ -1,49 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#2196F3">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="theme-color" content="#2196F3" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <title>Login - Painel Administrativo</title>
-    <link rel="shortcut icon" href="img/eetepa-Xinguara-2.ico" type="image/x-icon">
-    <link rel="stylesheet" href="styles/login-styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+      rel="shortcut icon"
+      href="img/eetepa-Xinguara-2.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="styles/login-styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</head>
-<body>
-    
+  </head>
+  <body>
     <div class="login-container">
-        <div class="login-box">
-            <img src="img/eetepa-Xinguara-2.ico" alt="EETEPA Logo" class="logo">
-            <h1>Painel Administrativo</h1>
-            <form id="loginForm">
-                <div class="input-group">
-                    <input type="text" id="username" placeholder="Usuário" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="password" placeholder="Senha" required>
-                    <button type="button" class="password-toggle" onclick="togglePassword()">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="eye-icon">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                    </button>
-                </div>
-                <button type="submit">ACESSAR PAINEL</button>
-            </form>
-        </div>
+      <div class="login-box">
+        <img src="img/eetepa-Xinguara-2.ico" alt="EETEPA Logo" class="logo" />
+        <h1>Painel Administrativo</h1>
+        <form id="loginForm">
+          <div class="input-group">
+            <input type="text" id="username" placeholder="Usuário" required />
+          </div>
+          <div class="input-group">
+            <input type="password" id="password" placeholder="Senha" required />
+            <button
+              type="button"
+              class="password-toggle"
+              onclick="togglePassword()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                class="eye-icon"
+              >
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </button>
+          </div>
+
+          <button type="submit">
+            Sign up
+            <div class="arrow-wrapper">
+              <div class="arrow"></div>
+            </div>
+          </button>
+        </form>
+      </div>
     </div>
     <script src="scripts/firebase-config.js"></script>
     <script src="scripts/login.js"></script>
-    
+
     <footer>
-        <p>EETEPA - Feira das Profissões - developy by - Isaque &copy; 2024</p>
+      <p>EETEPA - Feira das Profissões - developy by - Isaque &copy; 2024</p>
     </footer>
-</body>
-</html> 
+  </body>
+</html>
