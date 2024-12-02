@@ -1,39 +1,63 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos básicos */
 .sidebar {
+    background-color: #f8f9fa;
     min-height: 100vh;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.card {
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    border: none;
-    border-radius: 10px;
-}
-
-.card-title {
-    color: var(--text-color);
-    font-size: 1rem;
-}
-
-.card-text {
-    color: #333;
-    font-weight: bold;
-}
-
-.table th {
-    font-weight: 600;
-    color: #666;
+    border-right: 1px solid #dee2e6;
+    position: fixed;
+    width: 250px;
 }
 
 .nav-link {
+    color: #212529;
     padding: 0.5rem 1rem;
-    color: #666;
-    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .nav-link:hover {
-    background-color: rgba(255,255,255,0.1);
+    background-color: #e9ecef;
 }
 
 .nav-link.active {
-    background-color: rgba(255,255,255,0.2);
+    background-color: #e9ecef;
+}
+
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid #dee2e6;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Ajuste do conteúdo principal */
+main {
+    margin-left: 250px;
+}
+
+/* Cards */
+.card {
+    margin-bottom: 1rem;
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+    }
+    
+    main {
+        margin-left: 0;
+    }
 } 
