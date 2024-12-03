@@ -54,14 +54,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Filtro de turma
         if (filtroTurma.value !== 'todas') {
-            dadosFiltrados = dadosFiltrados.filter(av => av.turma === filtroTurma.value);
+            dadosFiltrados = dadosFiltrados.filter(av => {
+                if (av.turma && av.turma.ano && av.turma.periodo) {
+                    const turmaCompleta = `${av.turma.ano} ${av.turma.periodo}`;
+                    return turmaCompleta === filtroTurma.value;
+                }
+                return false;
+            });
         }
 
         // Filtro de curso
         if (filtroCurso.value !== 'todos') {
             dadosFiltrados = dadosFiltrados.filter(av => {
-                const [curso] = av.turma.split('°'); // Extrai o curso da turma
-                return curso.toLowerCase().includes(filtroCurso.value.toLowerCase());
+                if (av.turma && av.turma.curso) {
+                    const cursosNomes = {
+                        'AGRI': 'AGRICULTURA',
+                        'JOGOS': 'JOGOS DIGITAIS',
+                        'MULT': 'MULTIMÍDIA'
+                    };
+                    const cursoNome = cursosNomes[av.turma.curso] || av.turma.curso;
+                    return cursoNome.toLowerCase() === filtroCurso.value.toLowerCase();
+                }
+                return false;
             });
         }
 
@@ -121,145 +135,265 @@ document.addEventListener('DOMContentLoaded', function() {
             .slice(0, 10)
             .forEach(av => {
                 const mediaAv = calcularMedia(Object.values(av.avaliacoes.professor));
+                
+                // Formatar a turma corretamente
+                const turmaFormatada = av.turma ? `${av.turma.ano} ${av.turma.periodo}` : 'N/A';
+                
+                // Determinar o status baseado na média
+                let status = '';
+                let statusClass = '';
+                if (mediaAv >= 4) {
+                    status = 'Excelente';
+                    statusClass = 'text-success';
+                } else if (mediaAv >= 3) {
+                    status = 'Bom';
+                    statusClass = 'text-primary';
+                } else if (mediaAv >= 2) {
+                    status = 'Regular';
+                    statusClass = 'text-warning';
+                } else {
+                    status = 'Insatisfatório';
+                    statusClass = 'text-danger';
+                }
+
                 const row = tabelaAvaliacoes.insertRow();
                 row.innerHTML = `
                     <td>${av.data.toLocaleDateString()}</td>
                     <td>${av.professor}</td>
-                    <td>${av.turma}</td>
+                    <td>${turmaFormatada}</td>
                     <td>${mediaAv.toFixed(1)}</td>
+                    <td class="${statusClass}">${status}</td>
                 `;
             });
     }
 
-    function atualizarGraficos(dados) {
-        // Destruir gráficos existentes
-        if (graficoProfessores) graficoProfessores.destroy();
-        if (graficoGestao) graficoGestao.destroy();
+    // Configuração global para todos os gráficos
+    Chart.defaults.font.family = "'Inter', sans-serif";
+    Chart.defaults.color = '#64748b';
+    Chart.defaults.scale.grid.color = '#e2e8f0';
+    Chart.defaults.plugins.tooltip.backgroundColor = '#1e293b';
+    Chart.defaults.plugins.tooltip.padding = 12;
+    Chart.defaults.plugins.tooltip.cornerRadius = 8;
+    Chart.defaults.plugins.tooltip.titleFont.size = 14;
+    Chart.defaults.plugins.tooltip.titleFont.weight = '600';
 
-        // Preparar dados dos professores
-        const dadosProfessores = {};
-        new Set(dados.map(av => av.professor)).forEach(prof => {
-            const avaliacoesProf = dados.filter(av => av.professor === prof);
-            dadosProfessores[prof] = calcularMedia(
-                avaliacoesProf.flatMap(av => Object.values(av.avaliacoes.professor))
-            );
-        });
+    // Paleta de cores vibrantes para os gráficos
+    const chartColors = {
+        // Cores principais
+        primary: '#4F46E5',    // Índigo vibrante
+        secondary: '#7C3AED',  // Violeta vibrante
+        tertiary: '#2563EB',   // Azul vibrante
+        
+        // Gradientes
+        gradients: {
+            purple: ['#8B5CF6', '#C084FC'],   // Violeta para rosa
+            blue: ['#3B82F6', '#60A5FA'],     // Azul escuro para azul claro
+            green: ['#10B981', '#34D399'],    // Verde escuro para verde claro
+            orange: ['#F59E0B', '#FBBF24'],   // Laranja para amarelo
+            red: ['#EF4444', '#FB7185'],      // Vermelho para rosa
+            indigo: ['#4F46E5', '#818CF8']    // Índigo para azul claro
+        },
+        
+        // Cores de destaque
+        accent: {
+            yellow: '#FBBF24',
+            green: '#10B981',
+            red: '#EF4444',
+            purple: '#8B5CF6',
+            blue: '#3B82F6'
+        },
+        
+        // Cores de fundo com transparência
+        background: {
+            purple: 'rgba(139, 92, 246, 0.1)',
+            blue: 'rgba(59, 130, 246, 0.1)',
+            green: 'rgba(16, 185, 129, 0.1)',
+            orange: 'rgba(245, 158, 11, 0.1)',
+            red: 'rgba(239, 68, 68, 0.1)'
+        }
+    };
 
-        // Configurações comuns para ambos os gráficos
-        const chartOptions = {
-            responsive: true,
-            maintainAspectRatio: true, // Mantém a proporção do gráfico
-            plugins: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: true,
+    // Função para criar gradiente melhorada
+    function createGradient(ctx, colorArray, vertical = true) {
+        const gradient = vertical 
+            ? ctx.createLinearGradient(0, 0, 0, 300)
+            : ctx.createLinearGradient(0, 0, 300, 0);
+        
+        gradient.addColorStop(0, colorArray[0]);
+        gradient.addColorStop(1, colorArray[1]);
+        return gradient;
+    }
+
+    // Configurações base para todos os gráficos
+    const baseChartConfig = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    padding: 20,
+                    usePointStyle: true,
+                    pointStyle: 'circle',
                     font: {
-                        size: 16,
-                        weight: 'bold'
-                    },
-                    padding: 20
+                        size: 12,
+                        weight: '600'
+                    }
                 }
             },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 5,
-                    ticks: {
-                        stepSize: 1,
-                        font: {
-                            size: 12
-                        }
-                    },
-                    grid: {
-                        display: true,
-                        color: 'rgba(0, 0, 0, 0.1)'
+            tooltip: {
+                backgroundColor: chartColors.primary,
+                titleColor: '#fff',
+                bodyColor: '#fff',
+                padding: 12,
+                cornerRadius: 8,
+                displayColors: false,
+                titleFont: {
+                    size: 14,
+                    weight: '600'
+                },
+                bodyFont: {
+                    size: 13
+                },
+                callbacks: {
+                    label: function(context) {
+                        return ` ${context.dataset.label}: ${context.parsed.y.toFixed(1)}`;
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 5,
+                ticks: {
+                    stepSize: 1,
+                    padding: 10,
+                    color: chartColors.primary,
+                    font: {
+                        weight: '600'
                     }
                 },
-                x: {
-                    ticks: {
-                        font: {
-                            size: 12
-                        },
-                        maxRotation: 45,
-                        minRotation: 45
-                    },
-                    grid: {
+                grid: {
+                    color: 'rgba(79, 70, 229, 0.1)',
+                    drawBorder: false
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    padding: 10,
+                    color: chartColors.primary,
+                    font: {
+                        weight: '600'
+                    }
+                }
+            }
+        }
+    };
+
+    // Configurações específicas para cada tipo de gráfico
+    function createBarChart(ctx, data) {
+        const gradients = data.values.map((_, index) => {
+            const gradientKeys = Object.keys(chartColors.gradients);
+            const colorPair = chartColors.gradients[gradientKeys[index % gradientKeys.length]];
+            return createGradient(ctx, colorPair);
+        });
+
+        return new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: data.label,
+                    data: data.values,
+                    backgroundColor: gradients,
+                    borderRadius: 8,
+                    borderSkipped: false,
+                    barThickness: 40,
+                    maxBarThickness: 40
+                }]
+            },
+            options: {
+                ...baseChartConfig,
+                plugins: {
+                    ...baseChartConfig.plugins,
+                    legend: {
                         display: false
                     }
                 }
             }
-        };
+        });
+    }
 
-        // Gráfico de professores
-        graficoProfessores = new Chart(document.getElementById('grafico-professores'), {
-            type: 'bar',
+    function createLineChart(ctx, data) {
+        const gradient = createGradient(ctx, chartColors.gradients.blue);
+        const backgroundGradient = createGradient(ctx, [
+            'rgba(59, 130, 246, 0.2)',
+            'rgba(59, 130, 246, 0.0)'
+        ]);
+
+        return new Chart(ctx, {
+            type: 'line',
             data: {
-                labels: Object.keys(dadosProfessores),
+                labels: data.labels,
                 datasets: [{
-                    label: 'Média das Avaliações',
-                    data: Object.values(dadosProfessores),
-                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 2,
-                    borderRadius: 5,
-                    barThickness: 30
+                    label: data.label,
+                    data: data.values,
+                    borderColor: gradient,
+                    backgroundColor: backgroundGradient,
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointRadius: 6,
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: chartColors.primary,
+                    pointBorderWidth: 3,
+                    pointHoverRadius: 8,
+                    pointHoverBorderWidth: 3,
+                    pointHoverBackgroundColor: '#ffffff',
+                    pointHoverBorderColor: chartColors.accent.purple
                 }]
             },
             options: {
-                ...chartOptions,
+                ...baseChartConfig,
                 plugins: {
-                    ...chartOptions.plugins,
-                    title: {
-                        ...chartOptions.plugins.title,
-                        text: 'Desempenho dos Professores'
+                    ...baseChartConfig.plugins,
+                    tooltip: {
+                        backgroundColor: chartColors.primary,
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        padding: 12,
+                        displayColors: false
                     }
                 }
             }
         });
+    }
 
-        // Preparar dados da gestão
-        const mediasGestao = {
-            'Coordenação': calcularMedia(dados.flatMap(av => 
-                Object.values(av.avaliacoes.gestao.coordenacao)
-            )),
-            'Direção': calcularMedia(dados.flatMap(av => 
-                Object.values(av.avaliacoes.gestao.direcao)
-            )),
-            'Vice-direção': calcularMedia(dados.flatMap(av => 
-                Object.values(av.avaliacoes.gestao.vicedirecao)
-            ))
-        };
-
-        // Gráfico da gestão
-        graficoGestao = new Chart(document.getElementById('grafico-gestao'), {
+    function createRadarChart(ctx, data) {
+        return new Chart(ctx, {
             type: 'radar',
             data: {
-                labels: Object.keys(mediasGestao),
+                labels: data.labels,
                 datasets: [{
-                    label: 'Avaliação da Gestão',
-                    data: Object.values(mediasGestao),
-                    backgroundColor: 'rgba(255, 99, 132, 0.3)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
+                    label: data.label,
+                    data: data.values,
+                    backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                    borderColor: chartColors.gradients.purple[0],
                     borderWidth: 2,
-                    pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-                    pointBorderColor: '#fff',
-                    pointHoverBackgroundColor: '#fff',
-                    pointHoverBorderColor: 'rgba(255, 99, 132, 1)',
-                    pointRadius: 5,
-                    pointHoverRadius: 7
+                    pointBackgroundColor: '#ffffff',
+                    pointBorderColor: chartColors.gradients.purple[1],
+                    pointHoverRadius: 8,
+                    pointBorderWidth: 3,
+                    pointHoverBackgroundColor: '#ffffff',
+                    pointHoverBorderColor: chartColors.accent.purple
                 }]
             },
             options: {
-                ...chartOptions,
-                plugins: {
-                    ...chartOptions.plugins,
-                    title: {
-                        ...chartOptions.plugins.title,
-                        text: 'Avaliação da Equipe Gestora'
-                    }
-                },
+                ...baseChartConfig,
                 scales: {
                     r: {
                         beginAtZero: true,
@@ -270,118 +404,49 @@ document.addEventListener('DOMContentLoaded', function() {
                         pointLabels: {
                             font: {
                                 size: 12,
-                                weight: 'bold'
-                            }
+                                weight: '600'
+                            },
+                            color: chartColors.primary
                         },
                         grid: {
-                            color: 'rgba(0, 0, 0, 0.1)'
+                            color: 'rgba(79, 70, 229, 0.1)'
                         },
                         angleLines: {
-                            color: 'rgba(0, 0, 0, 0.1)'
+                            color: 'rgba(79, 70, 229, 0.1)'
                         }
                     }
                 }
             }
         });
+    }
 
-        // 1. Gráfico de Evolução Temporal
-        const evolucaoTemporal = new Chart(document.getElementById('grafico-evolucao'), {
-            type: 'line',
-            data: {
-                labels: [...new Set(dados.map(av => 
-                    av.data.toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' })
-                ))].sort(),
-                datasets: [{
-                    label: 'Média Mensal',
-                    data: calcularMediasMensais(dados),
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Evolução das Avaliações',
-                        font: { size: 16, weight: 'bold' }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 5
-                    }
-                }
-            }
+    // Exemplo de uso para atualizar os gráficos existentes:
+    function atualizarGraficos(dados) {
+        // Gráfico de Professores (Barra)
+        const ctxProfessores = document.getElementById('grafico-professores').getContext('2d');
+        if (graficoProfessores) graficoProfessores.destroy();
+        graficoProfessores = createBarChart(ctxProfessores, {
+            labels: Object.keys(dadosProfessores),
+            values: Object.values(dadosProfessores),
+            label: 'Média das Avaliações'
         });
 
-        // 2. Gráfico de Distribuição de Notas
-        const distribuicaoNotas = new Chart(document.getElementById('grafico-distribuicao'), {
-            type: 'doughnut',
-            data: {
-                labels: ['1-2', '2-3', '3-4', '4-5'],
-                datasets: [{
-                    data: calcularDistribuicaoNotas(dados),
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.7)',
-                        'rgba(255, 206, 86, 0.7)',
-                        'rgba(75, 192, 192, 0.7)',
-                        'rgba(54, 162, 235, 0.7)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Distribuição das Notas',
-                        font: { size: 16, weight: 'bold' }
-                    },
-                    legend: {
-                        position: 'right'
-                    }
-                }
-            }
+        // Gráfico de Evolução (Linha)
+        const ctxEvolucao = document.getElementById('grafico-evolucao').getContext('2d');
+        if (graficoEvolucao) graficoEvolucao.destroy();
+        graficoEvolucao = createLineChart(ctxEvolucao, {
+            labels: obterMesesAvaliacao(dados),
+            values: calcularEvolucaoGestao(dados),
+            label: 'Evolução das Avaliações'
         });
 
-        // 3. Gráfico Comparativo entre Cursos
-        const comparativoCursos = new Chart(document.getElementById('grafico-cursos'), {
-            type: 'bar',
-            data: {
-                labels: [...new Set(dados.map(av => av.turma.split('°')[0].trim()))],
-                datasets: [{
-                    label: 'Média por Curso',
-                    data: calcularMediasPorCurso(dados),
-                    backgroundColor: 'rgba(153, 102, 255, 0.7)',
-                    borderColor: 'rgba(153, 102, 255, 1)',
-                    borderWidth: 2,
-                    borderRadius: 5
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Comparativo entre Cursos',
-                        font: { size: 16, weight: 'bold' }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 5
-                    }
-                }
-            }
+        // Gráfico da Gestão (Radar)
+        const ctxGestao = document.getElementById('grafico-gestao').getContext('2d');
+        if (graficoGestao) graficoGestao.destroy();
+        graficoGestao = createRadarChart(ctxGestao, {
+            labels: Object.keys(mediasGestao),
+            values: Object.values(mediasGestao),
+            label: 'Avaliação da Gestão'
         });
     }
 
@@ -414,39 +479,78 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function calcularMediasPorCurso(dados) {
+        console.log('Dados recebidos em calcularMediasPorCurso:', dados);
+        
         const mediasPorCurso = {};
         dados.forEach(av => {
-            const curso = av.turma.split('°')[0].trim();
-            if (!mediasPorCurso[curso]) {
-                mediasPorCurso[curso] = [];
+            if (av.turma && av.turma.curso) {
+                const curso = av.turma.curso;
+                console.log('Processando curso:', curso);
+                
+                if (!mediasPorCurso[curso]) {
+                    mediasPorCurso[curso] = [];
+                }
+                if (av.avaliacoes && av.avaliacoes.professor) {
+                    const media = calcularMedia(Object.values(av.avaliacoes.professor));
+                    mediasPorCurso[curso].push(media);
+                    console.log(`Média adicionada para ${curso}:`, media);
+                }
             }
-            mediasPorCurso[curso].push(
-                calcularMedia(Object.values(av.avaliacoes.professor))
-            );
         });
 
-        return Object.entries(mediasPorCurso).map(([_, notas]) => 
-            calcularMedia(notas)
-        );
+        console.log('Médias por curso calculadas:', mediasPorCurso);
+        
+        return Object.entries(mediasPorCurso).map(([curso, notas]) => {
+            const mediaFinal = notas.length > 0 ? calcularMedia(notas) : 0;
+            console.log(`Média final do curso ${curso}:`, mediaFinal);
+            return mediaFinal;
+        });
     }
 
     function popularFiltros(dados) {
+        console.log('Dados recebidos em popularFiltros:', dados);
+
         // Popular select de turmas
-        const turmas = new Set(dados.map(av => av.turma));
-        filtroTurma.innerHTML = '<option value="todas">Todas as turmas</option>';
-        turmas.forEach(turma => {
-            filtroTurma.innerHTML += `<option value="${turma}">${turma}</option>`;
+        const turmas = new Set();
+        dados.forEach(av => {
+            if (av.turma && av.turma.ano && av.turma.periodo) {
+                const turmaCompleta = `${av.turma.ano} ${av.turma.periodo}`;
+                turmas.add(turmaCompleta);
+                console.log('Turma encontrada:', turmaCompleta);
+            }
         });
 
+        filtroTurma.innerHTML = '<option value="todas">Todas as turmas</option>';
+        turmas.forEach(turma => {
+            if (turma && turma !== 'N/A') {
+                filtroTurma.innerHTML += `<option value="${turma}">${turma}</option>`;
+            }
+        });
+        console.log('Turmas populadas:', Array.from(turmas));
+
         // Popular select de cursos
-        const cursos = new Set(dados.map(av => {
-            const [curso] = av.turma.split('°');
-            return curso.trim();
-        }));
+        const cursos = new Set();
+        const cursosNomes = {
+            'AGRI': 'AGRICULTURA',
+            'JOGOS': 'JOGOS DIGITAIS',
+            'MULT': 'MULTIMÍDIA'
+        };
+
+        dados.forEach(av => {
+            if (av.turma && av.turma.curso) {
+                const cursoNome = cursosNomes[av.turma.curso] || av.turma.curso;
+                cursos.add(cursoNome);
+                console.log('Curso encontrado:', cursoNome);
+            }
+        });
+
         filtroCurso.innerHTML = '<option value="todos">Todos os cursos</option>';
         cursos.forEach(curso => {
-            filtroCurso.innerHTML += `<option value="${curso}">${curso}</option>`;
+            if (curso && curso !== 'N/A') {
+                filtroCurso.innerHTML += `<option value="${curso}">${curso}</option>`;
+            }
         });
+        console.log('Cursos populados:', Array.from(cursos));
     }
 
     function atualizarSecaoProfessores(dados) {
@@ -498,7 +602,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     disciplina: av.disciplina,
                     notas: [],
                     totalAvaliacoes: 0,
-                    ultimaAvaliacao: av.data
+                    ultimaAvaliacao: av.data,
+                    turmas: new Set()
                 };
             }
 
@@ -510,18 +615,46 @@ document.addEventListener('DOMContentLoaded', function() {
             if (av.data > resumoProfessores[av.professor].ultimaAvaliacao) {
                 resumoProfessores[av.professor].ultimaAvaliacao = av.data;
             }
+
+            // Adicionar turma ao conjunto de turmas do professor
+            if (av.turma) {
+                resumoProfessores[av.professor].turmas.add(
+                    `${av.turma.ano} ${av.turma.periodo}`
+                );
+            }
         });
 
+        const tabelaProfessores = document.getElementById('tabela-professores').getElementsByTagName('tbody')[0];
         tabelaProfessores.innerHTML = '';
+        
         Object.entries(resumoProfessores).forEach(([prof, dados]) => {
             const media = calcularMedia(dados.notas);
+            
+            // Determinar o status baseado na média
+            let status = '';
+            let statusClass = '';
+            if (media >= 4) {
+                status = 'Excelente';
+                statusClass = 'text-success';
+            } else if (media >= 3) {
+                status = 'Bom';
+                statusClass = 'text-primary';
+            } else if (media >= 2) {
+                status = 'Regular';
+                statusClass = 'text-warning';
+            } else {
+                status = 'Insatisfatório';
+                statusClass = 'text-danger';
+            }
+
             const row = tabelaProfessores.insertRow();
             row.innerHTML = `
                 <td>${prof}</td>
-                <td>${dados.disciplina}</td>
+                <td>${dados.disciplina || 'N/A'}</td>
                 <td>${media.toFixed(1)}</td>
                 <td>${dados.totalAvaliacoes}</td>
                 <td>${dados.ultimaAvaliacao.toLocaleDateString()}</td>
+                <td class="${statusClass}">${status}</td>
             `;
         });
     }
@@ -762,20 +895,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const avaliacoesRef = db.ref('avaliacoes');
     avaliacoesRef.on('value', (snapshot) => {
         const dados = snapshot.val();
-        console.log('Dados recebidos:', dados);
+        console.log('Dados brutos do Firebase:', dados);
         
         dadosOriginais = [];
         
         for (let key in dados) {
-            if (dados[key] && dados[key].professor) {
+            // Ignora a chave "gestao" e outras que não são avaliações de professores
+            if (key !== "gestao" && key !== "test" && dados[key].professor) {
                 try {
                     const avaliacao = {
                         data: new Date(dados[key].timestamp),
                         professor: dados[key].professor.nome,
-                        disciplina: dados[key].professor.disciplina,
-                        turma: dados[key].turma ? `${dados[key].turma.ano} - ${dados[key].turma.periodo}` : 'N/A',
+                        disciplina: dados[key].professor.id.replace('prof_', '').toUpperCase(),
+                        turma: {
+                            ano: dados[key].turma?.ano || '',
+                            periodo: dados[key].turma?.periodo || '',
+                            curso: dados[key].turma?.codigo?.replace(/[0-9]+[mMtT]$/, '').toUpperCase() || '' // Extrai o curso do código
+                        },
                         avaliacoes: dados[key].avaliacoes || {}
                     };
+                    console.log('Avaliação processada:', avaliacao);
                     dadosOriginais.push(avaliacao);
                 } catch (error) {
                     console.error('Erro ao processar avaliação:', error, dados[key]);
@@ -783,6 +922,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
+        console.log('Dados processados:', dadosOriginais);
+        
+        // Popular os filtros com os dados carregados
+        popularFiltros(dadosOriginais);
+        
         // Atualizar Visão Geral
         atualizarVisaoGeral(dadosOriginais);
         
@@ -909,4 +1053,85 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Mostra a seção inicial (Visão Geral)
     showSection('visao-geral');
+
+    // Inicialização dos gráficos
+    function initializeCharts() {
+        // Gráfico de Evolução
+        const ctxEvolucao = document.getElementById('evolucao-chart')?.getContext('2d');
+        if (ctxEvolucao) {
+            new Chart(ctxEvolucao, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                    datasets: [{
+                        label: 'Média Mensal',
+                        data: [4.2, 3.8, 4.5, 4.0, 4.3, 4.6],
+                        borderColor: '#4F46E5',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 5,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Gráfico de Distribuição
+        const ctxDistribuicao = document.getElementById('distribuicao-chart')?.getContext('2d');
+        if (ctxDistribuicao) {
+            new Chart(ctxDistribuicao, {
+                type: 'bar',
+                data: {
+                    labels: ['1', '2', '3', '4', '5'],
+                    datasets: [{
+                        label: 'Quantidade de Avaliações',
+                        data: [5, 10, 15, 25, 20],
+                        backgroundColor: [
+                            '#EF4444',
+                            '#F59E0B',
+                            '#10B981',
+                            '#3B82F6',
+                            '#6366F1'
+                        ],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    // Chamar a função quando o documento estiver carregado
+    initializeCharts();
 }); 

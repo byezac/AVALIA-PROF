@@ -74,132 +74,110 @@
                 </div>
 
                 <!-- Filtros -->
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title mb-3">Filtros</h5>
-                                <div class="row g-3">
-                                    <!-- Filtro de Período -->
-                                    <div class="col-md-3">
-                                        <label for="filtro-periodo" class="form-label">Período</label>
-                                        <select class="form-select" id="filtro-periodo">
-                                            <option value="todos">Todos os períodos</option>
-                                            <option value="7">Últimos 7 dias</option>
-                                            <option value="30">Último mês</option>
-                                            <option value="90">Último trimestre</option>
-                                            <option value="365">Último ano</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Filtro de Turma -->
-                                    <div class="col-md-3">
-                                        <label for="filtro-turma" class="form-label">Turma</label>
-                                        <select class="form-select" id="filtro-turma">
-                                            <option value="todas">Todas as turmas</option>
-                                            <!-- Turmas serão adicionadas via JavaScript -->
-                                        </select>
-                                    </div>
-
-                                    <!-- Filtro de Curso -->
-                                    <div class="col-md-3">
-                                        <label for="filtro-curso" class="form-label">Curso</label>
-                                        <select class="form-select" id="filtro-curso">
-                                            <option value="todos">Todos os cursos</option>
-                                            <!-- Cursos serão adicionados via JavaScript -->
-                                        </select>
-                                    </div>
-
-                                    <!-- Busca de Professor -->
-                                    <div class="col-md-3">
-                                        <label for="busca-professor" class="form-label">Professor</label>
-                                        <input type="text" class="form-control" id="busca-professor" 
-                                               placeholder="Digite o nome do professor">
-                                    </div>
-
-                                    <!-- Botões de Ação -->
-                                    <div class="col-12">
-                                        <button class="btn btn-primary" id="aplicar-filtros">
-                                            Aplicar Filtros
-                                        </button>
-                                        <button class="btn btn-secondary" id="limpar-filtros">
-                                            Limpar Filtros
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="filters-section">
+                    <h5 class="card-title mb-3">Filtros</h5>
+                    <div class="row g-3">
+                        <!-- Filtro de Período -->
+                        <div class="col-md-3">
+                            <label for="filtro-periodo" class="form-label">Período</label>
+                            <select class="form-select" id="filtro-periodo">
+                                <option value="todos">Todos os períodos</option>
+                                <option value="7">Últimos 7 dias</option>
+                                <option value="30">Último mês</option>
+                                <option value="90">Último trimestre</option>
+                                <option value="365">Último ano</option>
+                            </select>
                         </div>
+
+                        <!-- Filtro de Turma -->
+                        <div class="col-md-3">
+                            <label for="filtro-turma" class="form-label">Turma</label>
+                            <select class="form-select" id="filtro-turma">
+                                <option value="todas">Todas as turmas</option>
+                                <!-- Turmas serão adicionadas via JavaScript -->
+                            </select>
+                        </div>
+
+                        <!-- Filtro de Curso -->
+                        <div class="col-md-3">
+                            <label for="filtro-curso" class="form-label">Curso</label>
+                            <select class="form-select" id="filtro-curso">
+                                <option value="todos">Todos os cursos</option>
+                                <!-- Cursos serão adicionados via JavaScript -->
+                            </select>
+                        </div>
+
+                        <!-- Busca de Professor -->
+                        <div class="col-md-3">
+                            <label for="busca-professor" class="form-label">Professor</label>
+                            <input type="text" class="form-control" id="busca-professor" 
+                                   placeholder="Digite o nome do professor">
+                        </div>
+                    </div>
+                    <div class="btn-group mt-3">
+                        <button class="btn btn-primary" id="aplicar-filtros">
+                            <i class="fas fa-filter"></i> Aplicar Filtros
+                        </button>
+                        <button class="btn btn-secondary" id="limpar-filtros">
+                            <i class="fas fa-broom"></i> Limpar Filtros
+                        </button>
                     </div>
                 </div>
 
                 <!-- Cards de Resumo -->
-                <div class="row mb-4 g-3">
+                <div class="row g-4 mb-4">
                     <div class="col-md-3">
-                        <div class="card card-stats h-100">
-                            <div class="card-body d-flex flex-column align-items-center">
-                                <div class="icon-box mb-3">
-                                    <i class="fas fa-chart-bar fa-2x text-primary"></i>
-                                </div>
-                                <h5 class="card-title text-center">Total de Avaliações</h5>
-                                <h2 class="card-text mb-0" id="total-avaliacoes">0</h2>
+                        <div class="card-stats">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-chart-bar"></i>
                             </div>
+                            <h5 class="card-title">Total de Avaliações</h5>
+                            <div class="card-value" id="total-avaliacoes">5</div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card card-stats h-100">
-                            <div class="card-body d-flex flex-column align-items-center">
-                                <div class="icon-box mb-3">
-                                    <i class="fas fa-star fa-2x text-warning"></i>
-                                </div>
-                                <h5 class="card-title text-center">Média Geral</h5>
-                                <h2 class="card-text mb-2" id="media-geral">0.0</h2>
-                                <div class="emoji-indicator" id="media-emoji">😐</div>
+                        <div class="card-stats">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-star"></i>
                             </div>
+                            <h5 class="card-title">Média Geral</h5>
+                            <div class="card-value" id="media-geral">3.9</div>
+                            <div class="emoji-indicator" id="media-emoji">😐</div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card card-stats h-100">
-                            <div class="card-body d-flex flex-column align-items-center">
-                                <div class="icon-box mb-3">
-                                    <i class="fas fa-user-graduate fa-2x text-success"></i>
-                                </div>
-                                <h5 class="card-title text-center">Professores Avaliados</h5>
-                                <h2 class="card-text mb-0" id="total-professores">0</h2>
+                        <div class="card-stats">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-user-graduate"></i>
                             </div>
+                            <h5 class="card-title">Professores Avaliados</h5>
+                            <div class="card-value" id="total-professores">5</div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card card-stats h-100">
-                            <div class="card-body d-flex flex-column align-items-center">
-                                <div class="icon-box mb-3">
-                                    <i class="fas fa-trophy fa-2x text-warning"></i>
-                                </div>
-                                <h5 class="card-title text-center">Melhor Professor</h5>
-                                <h3 class="card-text mb-2" id="melhor-professor-nome">-</h3>
-                                <div class="text-center">
-                                    <span class="badge bg-warning" id="melhor-professor-nota">0.0</span>
-                                </div>
+                        <div class="card-stats best-teacher">
+                            <div class="icon-wrapper">
+                                <i class="fas fa-trophy"></i>
                             </div>
+                            <h5 class="card-title">Melhor Professor</h5>
+                            <div class="card-value" id="melhor-professor-nome">PAULO HENRIQUE</div>
+                            <div class="card-badge" id="melhor-professor-nota">5.0</div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Gráficos -->
-                <div class="row mb-4">
+                <div class="row g-4 mb-4">
                     <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Avaliação por Professor</h5>
-                                <canvas id="grafico-professores"></canvas>
-                            </div>
+                        <div class="chart-container">
+                            <h5 class="card-title">Avaliação por Professor</h5>
+                            <canvas id="grafico-professores"></canvas>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Avaliação da Gestão</h5>
-                                <canvas id="grafico-gestao"></canvas>
-                            </div>
+                        <div class="chart-container">
+                            <h5 class="card-title">Avaliação da Gestão</h5>
+                            <canvas id="grafico-gestao"></canvas>
                         </div>
                     </div>
                 </div>
@@ -233,23 +211,38 @@
                 </div>
 
                 <!-- Tabela de Últimas Avaliações -->
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Últimas Avaliações</h5>
-                        <div class="table-responsive">
-                            <table class="table" id="tabela-avaliacoes">
-                                <thead>
-                                    <tr>
-                                        <th>Data</th>
-                                        <th>Professor</th>
-                                        <th>Turma</th>
-                                        <th>Média</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Dados serão inseridos via JavaScript -->
-                                </tbody>
-                            </table>
+                <div class="table-container">
+                    <table class="table" id="tabela-avaliacoes">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Professor</th>
+                                <th>Turma</th>
+                                <th>Média</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dados serão inseridos via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="chart-card">
+                            <h5>Evolução das Avaliações</h5>
+                            <div class="chart-container">
+                                <canvas id="evolucao-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="chart-card">
+                            <h5>Distribuição por Nota</h5>
+                            <div class="chart-container">
+                                <canvas id="distribuicao-chart"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -257,130 +250,111 @@
 
             <!-- Seção Professores -->
             <section id="professores" class="section-content d-none">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div class="section-header">
                     <h1>Professores</h1>
                 </div>
 
-                <!-- Filtros específicos para professores -->
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title mb-3">Filtros</h5>
-                                <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <label for="filtro-professor" class="form-label">Professor</label>
-                                        <select class="form-select" id="filtro-professor">
-                                            <option value="todos">Todos os professores</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="filtro-disciplina" class="form-label">Disciplina</label>
-                                        <select class="form-select" id="filtro-disciplina">
-                                            <option value="todas">Todas as disciplinas</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="filtro-periodo-prof" class="form-label">Período</label>
-                                        <select class="form-select" id="filtro-periodo-prof">
-                                            <option value="todos">Todos os períodos</option>
-                                            <option value="30">Último mês</option>
-                                            <option value="90">Último trimestre</option>
-                                            <option value="365">Último ano</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                <!-- Filtros específicos -->
+                <div class="filtros-especificos">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label for="filtro-professor" class="form-label">Professor</label>
+                            <select class="form-select" id="filtro-professor">
+                                <option value="todos">Todos os professores</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="filtro-disciplina" class="form-label">Disciplina</label>
+                            <select class="form-select" id="filtro-disciplina">
+                                <option value="todas">Todas as disciplinas</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="filtro-periodo-prof" class="form-label">Período</label>
+                            <select class="form-select" id="filtro-periodo-prof">
+                                <option value="todos">Todos os períodos</option>
+                            </select>
                         </div>
                     </div>
                 </div>
 
-                <!-- Gráficos e estatísticas dos professores -->
+                <!-- Gráficos dos professores -->
                 <div class="row mb-4">
                     <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Avaliação Individual</h5>
-                                <canvas id="grafico-professor-individual"></canvas>
-                            </div>
+                        <div class="gestao-chart">
+                            <h5>Avaliação Individual</h5>
+                            <canvas id="grafico-professor-individual"></canvas>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Comparativo por Disciplina</h5>
-                                <canvas id="grafico-disciplinas"></canvas>
-                            </div>
+                        <div class="gestao-chart">
+                            <h5>Comparativo por Disciplina</h5>
+                            <canvas id="grafico-disciplinas"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <!-- Tabela detalhada de professores -->
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title">Detalhamento por Professor</h5>
-                        <div class="table-responsive">
-                            <table class="table" id="tabela-professores">
-                                <thead>
-                                    <tr>
-                                        <th>Professor</th>
-                                        <th>Disciplina</th>
-                                        <th>Média Geral</th>
-                                        <th>Total Avaliações</th>
-                                        <th>Última Avaliação</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- Dados serão inseridos via JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="sem-dados-professores" class="alert alert-info d-none text-center">
-                    Nenhuma avaliação encontrada para professores
+                <!-- Tabela de professores -->
+                <div class="professor-table">
+                    <table class="table" id="tabela-professores">
+                        <thead>
+                            <tr>
+                                <th>Professor</th>
+                                <th>Disciplina</th>
+                                <th>Média Geral</th>
+                                <th>Total Avaliações</th>
+                                <th>Última Avaliação</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dados serão inseridos via JavaScript -->
+                        </tbody>
+                    </table>
                 </div>
             </section>
 
             <!-- Seção Gestão -->
             <section id="gestao" class="section-content d-none">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div class="section-header">
                     <h1>Gestão</h1>
                 </div>
 
-                <!-- Cards de resumo da gestão -->
-                <div class="row mb-4 g-3">
+                <!-- Cards de métricas -->
+                <div class="row g-4 mb-4">
                     <div class="col-md-4">
-                        <div class="card card-stats">
-                            <div class="card-body">
-                                <h5 class="card-title">Coordenação</h5>
-                                <h2 class="card-text" id="media-coordenacao">0.0</h2>
-                                <div class="progress mt-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
-                                </div>
+                        <div class="metric-card">
+                            <h5 class="metric-title">
+                                <i class="fas fa-users-cog"></i>
+                                Coordenação
+                            </h5>
+                            <div class="metric-value" id="media-coordenacao">0.0</div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card card-stats">
-                            <div class="card-body">
-                                <h5 class="card-title">Direção</h5>
-                                <h2 class="card-text" id="media-direcao">0.0</h2>
-                                <div class="progress mt-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
-                                </div>
+                        <div class="metric-card">
+                            <h5 class="metric-title">
+                                <i class="fas fa-user-tie"></i>
+                                Direção
+                            </h5>
+                            <div class="metric-value" id="media-direcao">0.0</div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card card-stats">
-                            <div class="card-body">
-                                <h5 class="card-title">Vice-direção</h5>
-                                <h2 class="card-text" id="media-vicedirecao">0.0</h2>
-                                <div class="progress mt-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
-                                </div>
+                        <div class="metric-card">
+                            <h5 class="metric-title">
+                                <i class="fas fa-user-tie"></i>
+                                Vice-direção
+                            </h5>
+                            <div class="metric-value" id="media-vicedirecao">0.0</div>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 0%"></div>
                             </div>
                         </div>
                     </div>

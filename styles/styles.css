@@ -101,21 +101,107 @@ body {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
+/* Cards de Estatísticas */
 .card-stats {
-    text-align: center;
+    position: relative;
+    background: white;
+    border-radius: 1.2rem;
     padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-.card-stats .icon-box {
+.card-stats::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    border-radius: 1.2rem 1.2rem 0 0;
+}
+
+.card-stats .icon-wrapper {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 1rem;
-    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-    color: white;
+    margin-bottom: 1rem;
+    background: rgba(99, 102, 241, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card-stats:hover .icon-wrapper {
+    transform: scale(1.1);
+}
+
+.card-stats .icon-wrapper i {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.card-stats .card-title {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    z-index: 1;
+}
+
+.card-stats .card-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+    z-index: 1;
+}
+
+.card-stats .card-badge {
+    padding: 0.25rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary-color);
+    z-index: 1;
+}
+
+.card-stats .emoji-indicator {
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    z-index: 1;
+}
+
+/* Card específico para Melhor Professor */
+.card-stats.best-teacher {
+    text-align: center;
+}
+
+.card-stats.best-teacher .card-value {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.card-stats.best-teacher .card-badge {
+    background: rgba(234, 179, 8, 0.1);
+    color: var(--warning-color);
+}
+
+/* Efeito de hover suave */
+.card-stats {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-stats:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.1);
 }
 
 /* Gráficos */
@@ -230,4 +316,410 @@ main {
 .emoji-indicator {
     font-size: 2rem;
     margin-top: 0.5rem;
+}
+
+/* Filtros Aprimorados */
+.filters-section {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+.filters-section .form-label {
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+/* Tabelas Aprimoradas */
+.table-container {
+    border-radius: 1.2rem;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.table thead {
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+}
+
+.table thead th {
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 1.2rem 1rem;
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+    background: rgba(99, 102, 241, 0.05);
+}
+
+/* Gráficos Aprimorados */
+.chart-container {
+    position: relative;
+    background: white;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    height: 400px; /* Altura fixa para melhor visualização */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.chart-container h5 {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Animação de loading para os gráficos */
+.chart-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1.2rem;
+    z-index: 10;
+}
+
+.chart-loading::after {
+    content: '';
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--border-color);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Botões Aprimorados */
+.btn-group {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn:hover::after {
+    left: 100%;
+}
+
+/* Loading States */
+.loading-skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: rgba(99, 102, 241, 0.1);
+    }
+    100% {
+        background-color: rgba(99, 102, 241, 0.2);
+    }
+}
+
+/* Scrollbar Personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+/* Tooltips Personalizados */
+.custom-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-tooltip:hover::before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.5rem 1rem;
+    background: var(--text-primary);
+    color: white;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* Status Badges */
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-badge.success {
+    background: rgba(34, 197, 94, 0.1);
+    color: var(--success-color);
+}
+
+.status-badge.warning {
+    background: rgba(234, 179, 8, 0.1);
+    color: var(--warning-color);
+}
+
+.status-badge.danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+/* Estilos para seções Professores e Gestão */
+
+/* Cabeçalho das seções */
+.section-header {
+    padding: 1.5rem 0;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid rgba(99, 102, 241, 0.1);
+}
+
+.section-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* Cards de métricas da Gestão */
+.metric-card {
+    background: white;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    height: 100%;
+}
+
+.metric-card .metric-title {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.metric-card .metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.metric-card .progress {
+    height: 0.5rem;
+    background-color: rgba(99, 102, 241, 0.1);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.metric-card .progress-bar {
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    transition: width 0.6s ease;
+}
+
+/* Tabela de Professores */
+.professor-table {
+    background: white;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.professor-table thead {
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+}
+
+.professor-table thead th {
+    color: white;
+    font-weight: 600;
+    padding: 1.2rem 1rem;
+    border: none;
+}
+
+.professor-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.professor-table tbody tr:hover {
+    background-color: rgba(99, 102, 241, 0.05);
+}
+
+.professor-table td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+}
+
+/* Avaliação Individual do Professor */
+.professor-card {
+    background: white;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.professor-card .avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.professor-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(99, 102, 241, 0.05);
+    border-radius: 0.8rem;
+}
+
+/* Gráficos da Gestão */
+.gestao-chart {
+    background: white;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.gestao-chart h5 {
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Badges de Status */
+.status-badge {
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-badge.excelente {
+    background: rgba(34, 197, 94, 0.1);
+    color: var(--success-color);
+}
+
+.status-badge.bom {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary-color);
+}
+
+.status-badge.regular {
+    background: rgba(234, 179, 8, 0.1);
+    color: var(--warning-color);
+}
+
+.status-badge.ruim {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger-color);
+}
+
+/* Filtros específicos */
+.filtros-especificos {
+    background: white;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.filtros-especificos .form-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.filtros-especificos .form-select,
+.filtros-especificos .form-control {
+    border-radius: 0.8rem;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 0.75rem 1rem;
+}
+
+.filtros-especificos .form-select:focus,
+.filtros-especificos .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.chart-card {
+    background: white;
+    border-radius: 1.2rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    height: 100%;
+}
+
+.chart-card h5 {
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
 }
